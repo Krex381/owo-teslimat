@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const { Client } = require('discord.js-selfbot-v13');
 const fs = require('fs').promises;
 const { checkStock } = require('./utils/stockManager');
-config = require('./config.json');
+const config = require('./config.json');
 const bot = new Discord.Client({ 
     intents: 3276799, 
     partials: [

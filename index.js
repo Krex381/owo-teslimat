@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const { Client } = require('discord.js-selfbot-v13');
 const fs = require('fs').promises;
 const { checkStock } = require('./utils/stockManager');
+config = require('./config.json');
 const bot = new Discord.Client({ 
     intents: 3276799, 
     partials: [
@@ -19,7 +20,7 @@ const bot = new Discord.Client({
 bot.slashCommands = new Discord.Collection();
 bot.setMaxListeners(70);
 
-bot.login(process.env.TOKEN)
+bot.login(config.token)
     .then(() => { 
         console.log(`[!] — Logged in as ${bot.user.tag} (${bot.user.id})`); 
     })
@@ -30,4 +31,5 @@ bot.login(process.env.TOKEN)
 const slashcommandHandler = require('./Handler/slashcommand.js')(bot);
 const eventdHandler = require('./Handler/Events')(bot);
 const anticrashHandler = require('./Handler/anticrash');
+const { config } = require('dotenv');
 anticrashHandler(bot);

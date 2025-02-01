@@ -1,0 +1,9 @@
+{
+  "token": "BOT_TOKEN",
+  "color": "#2b2d31",
+  "ownerID": "SAHIP_ID",
+  "account_tokens" : ["HESAP 1", "HESAP 2", "HESAP 3"],
+  "owo_channel_id": "KANAL_ID",
+  "owo_id": "408785106942164992",
+  "per_token_per_cash": "all"
+}

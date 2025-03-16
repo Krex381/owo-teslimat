@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const config = require('../config.js'); 
 
 module.exports = {
     name: 'olustur',
@@ -8,8 +9,8 @@ module.exports = {
     options: [
         {
             name: 'kullanici',
-            description: '👤 Kodun tanımlanacağı kullanıcı',
-            type: 6,
+            description: '👤 Kodun tanımlanacağı kullanıcı (ID veya etiket)',
+            type: 3,
             required: true
         },
         {
@@ -19,7 +20,7 @@ module.exports = {
             required: true
         }
     ],
-    run: async (bot, interaction, args, config) => {
+    run: async (bot, interaction) => { 
         
         await interaction.deferReply({ 
             flags: Discord.MessageFlags.Ephemeral 
@@ -31,8 +32,42 @@ module.exports = {
             });
         }
 
-        const targetUser = interaction.options.getUser('kullanici');
+        let targetUser;
+        const userInput = interaction.options.getString('kullanici');
         const amount = interaction.options.getInteger('miktar');
+        
+        
+        if (/^\d+$/.test(userInput)) {
+            
+            try {
+                targetUser = await bot.users.fetch(userInput);
+            } catch (err) {
+                return interaction.editReply({
+                    content: '❌ Geçersiz kullanıcı ID\'si. Kullanıcı bulunamadı.'
+                });
+            }
+        } else if (userInput.startsWith('<@') && userInput.endsWith('>')) {
+            
+            const userId = userInput.replace(/[<@!>]/g, '');
+            try {
+                targetUser = await bot.users.fetch(userId);
+            } catch (err) {
+                return interaction.editReply({
+                    content: '❌ Geçersiz kullanıcı etiketi. Kullanıcı bulunamadı.'
+                });
+            }
+        } else {
+            return interaction.editReply({
+                content: '❌ Geçersiz giriş. Lütfen bir kullanıcı ID\'si veya etiket girin.'
+            });
+        }
+        
+        if (!targetUser) {
+            return interaction.editReply({
+                content: '❌ Kullanıcı bulunamadı.'
+            });
+        }
+        
         
         const key = Array(4).fill()
             .map(() => Array(5).fill()

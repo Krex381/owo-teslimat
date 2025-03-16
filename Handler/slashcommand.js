@@ -9,7 +9,7 @@ module.exports = bot => {
     bot.slashCommands.set(props.name, props);
     arrayOfSlashCommands.push(props);
     bot.arrayOfSlashCommands = arrayOfSlashCommands
-      //console.log(`[SLASH-COMMAND] ▸ ${file}`);
+      
   }
     const commandSubFolders = fs.readdirSync('./SlashCommands/').filter((folder) => !folder.endsWith('.js'));
 
@@ -21,7 +21,7 @@ module.exports = bot => {
     bot.slashCommands.set(props.name, props);
     arrayOfSlashCommands.push(props);
     bot.arrayOfSlashCommands = arrayOfSlashCommands
-      //console.log(`[SLASH-COMMAND] ▸ ${file} - ${folder}`);
+      
     }
   }
 };

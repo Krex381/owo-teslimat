@@ -7,27 +7,47 @@
 - Detaylı kayıt tutma
 - Kullanıcı bazlı kod yönetimi
 - Anlık stok takibi
+- Otomatik sunucuya girme ve çıkma
+- Optimize edilmiş bakiye kontrolü
+- Otomatik OwO Cash transferi
+- Güvenli token yönetimi
 
 ## ⚙️ Kurulum
 
-1. `config.json` dosyasını düzenleyin:
-   ```json
-   {
-     "token": "BOT_TOKEN",
-     "ownerID": "SIZIN_ID",
-     "account_tokens": ["TOKEN1", "TOKEN2", "TOKEN3"],
-     "owo_channel_id": "KANAL_ID",
-     "owo_id": "408785106942164992",
-     "per_token_per_cash": "all"
+1. `config.js` dosyasını düzenleyin:
+   ```javascript
+   module.exports = {
+       bot: {
+           token: "BOT_TOKEN", // Discord botunuzun tokeni
+           id: "BOT_ID", // Botunuzun ID'si
+           secret: "BOT_SECRET" // Bot OAuth2 Secret (Discord Developer Portal'dan)
+       },
+       owo_channel_id: "KANAL_ID", // OwO botunu kullanacağınız kanal ID'si
+       owo_id: "408785106942164992", // OwO botunun ID'si (değiştirmeyin)
+       ownerID: "SIZIN_ID", // Sizin Discord ID'niz
+       per_token_per_cash: "all", // "all" veya belirli bir miktar
+   
+       web: {
+           url: "http://localhost:3001", // Web Adresi (redirect olarak ayarlayın)
+           port: 3001, // Web Port
+       }
    }
    ```
 
-2. Gerekli modülleri yükleyin:
+2. `tokens/tokenler.txt` dosyasını oluşturun ve her satıra bir hesap tokeni ekleyin:
+   ```
+   TOKEN1
+   TOKEN2
+   TOKEN3
+   ...
+   ```
+
+3. Gerekli modülleri yükleyin:
    ```bash
    npm i
    ```
 
-3. Botu başlatın:
+4. Botu başlatın:
    ```bash
    node index.js
    ```
@@ -46,6 +66,7 @@
   - Büyük miktarlar için otomatik bölünmüş transfer
   - En uygun hesaptan transfer
   - İlerleme durumu takibi
+  - Otomatik sunucuya katılma ve çıkma
 
 ### `/stok`
 - 🎯 **Kullanım**: `/stok`
@@ -70,12 +91,20 @@
 - Transfer durumu anlık takip
 - Hata durumunda otomatik telafi
 
+## 🚀 Yeni Özellikler
+- **Otomatik Sunucuya Girme**: Hesaplar otomatik olarak sunucuya katılır ve işlem bittikten sonra ayrılır
+- **Optimize Bakiye Kontrolü**: Bakiye sorguları optimize edilmiş ve mükerrer kontroller kaldırılmıştır
+- **Akıllı Token Yönetimi**: Tokenler daha güvenli şekilde yönetilir ve saklanır
+- **Discord.js v14 Uyumluluğu**: En son Discord API özellikleriyle uyumlu
+- **Performans İyileştirmeleri**: Daha hızlı ve daha güvenilir teslimat işlemi
+
 ## ⚠️ Önemli Notlar
 - Bot token'ınızı kimseyle paylaşmayın
 - OwO Cash hesaplarınızın token'larını güvenli tutun
 - Sistem sorunlarında logları kontrol edin
 - İşlemler sırasında botun çevrimiçi olduğundan emin olun
 - Birden fazla hesap kullanırken bakiyeleri düzenli kontrol edin
+- Teslimat sırasında botun sunucuya giriş ve çıkış yapmasına izin verin
 
 ## 🆘 Hata Çözümleri
 1. **Kod Kullanılamıyor**
@@ -87,8 +116,15 @@
    - Stok durumunu `/stok` ile kontrol edin
    - Hesaplarda yeterli bakiye olduğundan emin olun
    - Transfer limitlerini kontrol edin
+   - Sunucu ayarlarında botların katılmasına izin verildiğinden emin olun
 
 3. **Stok Görüntülenemiyor**
    - Hesap tokenlarının geçerli olduğunu kontrol edin
    - OwO botunun çevrimiçi olduğunu doğrulayın
    - Kanal izinlerini kontrol edin
+
+4. **Sunucuya Giriş/Çıkış Sorunları**
+   - Sunucu davet ayarlarını kontrol edin
+   - Botların sunucuya giriş izninin olduğunu doğrulayın
+   - Token'ların geçerliliğini kontrol edin
+   - Discord API sınırlamalarını göz önünde bulundurun

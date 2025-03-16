@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const path = './db/database.json';
+const config = require('../config.js'); 
 
 module.exports = {
     name: 'kodlar',
@@ -12,7 +13,7 @@ module.exports = {
         type: 6,
         required: false
     }],
-    run: async (bot, interaction, args, config) => {
+    run: async (bot, interaction) => { 
         await interaction.deferReply({ 
             flags: Discord.MessageFlags.Ephemeral 
         });

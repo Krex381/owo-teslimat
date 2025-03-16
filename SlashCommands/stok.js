@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs').promises;
 const path = require('path');
-const config = require('../config.json');
+const config = require('../config.js'); 
 const { checkStock } = require('../utils/stockManager');
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
             });
         }
 
-        // Initial reply with loading message
+        
         await interaction.reply({
             embeds: [
                 new Discord.EmbedBuilder()
@@ -27,7 +27,7 @@ module.exports = {
         });
 
         try {
-            // Force new stock check
+            
             const stockData = await checkStock();
 
             let totalStock = 0;
